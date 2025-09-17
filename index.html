@@ -123,29 +123,6 @@
         );
       }
 
-      // --- Logo SVG (swap with your own paths; uses currentColor for theme) ---
-      function LogoSVG({ className = "w-24 h-24" }) {
-        return (
-          <svg viewBox="0 0 160 160" className={className} aria-label="rhykerd logo">
-            <defs>
-              <radialGradient id="glow" cx="50%" cy="50%" r="60%">
-                <stop offset="0%" stopColor="currentColor" stopOpacity="0.9" />
-                <stop offset="60%" stopColor="currentColor" stopOpacity="0.15" />
-                <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
-              </radialGradient>
-            </defs>
-            <circle cx="80" cy="80" r="76" fill="url(#glow)" />
-            <g fill="none" stroke="currentColor" strokeWidth="6" strokeLinejoin="round" strokeLinecap="round">
-              <path d="M40 115 V45 h50a25 25 0 0 1 0 50H40" />
-              <path d="M90 95 l30 20" />
-              <circle cx="40" cy="45" r="4" fill="currentColor" />
-              <circle cx="120" cy="115" r="4" fill="currentColor" />
-              <circle cx="90" cy="95" r="4" fill="currentColor" />
-            </g>
-          </svg>
-        );
-      }
-
       // --- App ---
       function RhykerdSplash() {
         const [crt, setCrt] = useState("emerald"); // emerald | amber
@@ -209,15 +186,6 @@
                 <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-emerald-200">
                   <GlitchText>rhykerd.com</GlitchText>
                 </h1>
-
-                <p className="mt-3 max-w-xl mx-auto text-emerald-100/80">
-                  neo‑retro network node // signal acquired // stand by for uplink
-                </p>
-
-                <div className="mt-8 flex items-center justify-center gap-3">
-                  <a href="#" className="rounded-2xl border border-emerald-400/40 px-5 py-2.5 text-emerald-100 bg-black/50 hover:bg-emerald-500/20 transition shadow-[0_0_30px_rgba(0,255,135,0.15)]">Enter</a>
-                  <button onClick={() => setCrt(crt === "amber" ? "emerald" : "amber")} className="rounded-2xl border border-emerald-400/40 px-5 py-2.5 text-emerald-100/80 hover:text-emerald-100 bg-black/30 hover:bg-black/40 transition">CRT: {crt}</button>
-                </div>
 
                 <div className="mt-8 text-xs text-emerald-300/60 font-mono">press "A" for amber/green • Konami code for a surprise</div>
                 <div className="mt-12 text-emerald-300/60 text-xs">© 1980—2025 rhykerd.com</div>
