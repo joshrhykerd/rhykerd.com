@@ -216,8 +216,9 @@
           this.density = density;
           this.speed = speed;
           this.fontSize = 16;
-          this.characters = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズヅブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ$%#*+-=<>';
+          this.characters = "アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズヅブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ$%#*+-=<>'";
           this.animationFrame = null;
+          this.color = '0, 255, 135';
           this.resize = this.resize.bind(this);
           this.draw = this.draw.bind(this);
           window.addEventListener('resize', this.resize);
@@ -242,7 +243,7 @@
 
           for (let i = 0; i < this.drops.length; i++) {
             const text = this.characters[Math.floor(Math.random() * this.characters.length)];
-            ctx.fillStyle = `rgba(0, 255, 135, ${0.6 + Math.random() * 0.4})`;
+            ctx.fillStyle = `rgba(${this.color}, ${0.6 + Math.random() * 0.4})`;
             ctx.fillText(text, i * this.fontSize, this.drops[i] * this.fontSize);
 
             if (this.drops[i] * this.fontSize > height && Math.random() > this.density) {
@@ -259,6 +260,12 @@
           cancelAnimationFrame(this.animationFrame);
           window.removeEventListener('resize', this.resize);
         }
+
+        setColor(color) {
+          if (color) {
+            this.color = color;
+          }
+        }
       }
 
       document.addEventListener('DOMContentLoaded', () => {
@@ -273,6 +280,9 @@
           emerald: 'theme-emerald',
         };
 
+        const getCurrentCrtColor = () =>
+          getComputedStyle(body).getPropertyValue('--crt').trim() || '0, 255, 135';
+
         const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a', 'Enter'];
         let konamiIndex = 0;
         let burstTimeout = null;
@@ -281,6 +291,7 @@
           body.classList.remove(themes[currentTheme]);
           currentTheme = currentTheme === 'amber' ? 'emerald' : 'amber';
           body.classList.add(themes[currentTheme]);
+          rain.setColor(getCurrentCrtColor());
         }
 
         function triggerBurst() {
@@ -292,6 +303,7 @@
         }
 
         body.classList.add(themes[currentTheme]);
+        rain.setColor(getCurrentCrtColor());
 
         window.addEventListener('keydown', (event) => {
           const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
